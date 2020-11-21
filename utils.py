@@ -7,7 +7,7 @@ from matplotlib import pyplot as plt
 
 
 def generate_data(num_points: int, dimension: int, god_separation: list, lower_bound: int, upper_bound: int,
-                  data_path="source.txt"):
+                  data_path=None):
     """Generate data with requested format and characteristic
     Args:
         num_points: number of data points to generate
@@ -17,6 +17,8 @@ def generate_data(num_points: int, dimension: int, god_separation: list, lower_b
         upper_bound: all dimension values are smaller than it
         data_path: indicating the path to write the dataset
     """
+    if data_path is None:
+        data_path="source.txt"
     with open(data_path, 'w') as f:
         print(f"{num_points} {dimension}", file=f)
         for _ in range(num_points):
