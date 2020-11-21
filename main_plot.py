@@ -183,25 +183,29 @@ def main_loop(data_iter, w, n=None, d=None, ub=None, lb=None):
 
 
 if __name__ == "__main__":
-    input_path, output_path = None, None
+    input_path = None
+    use_a_fixed_config_to_test = False
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "hi:o:", ["input_file=", "output_file="])
+        opts, args = getopt.getopt(sys.argv[1:], "hi:m:", ["input_file=", "mode="])
     except getopt.GetoptError:
-        print('main.py -i <input_file> -o <output_file>')
+        print('main.py -i <input_file> -m <mode>')
         sys.exit(2)
     for opt, arg in opts:
         if opt == '-h':
-            print('main.py -i <input_file> -o <output_file>')
+            print('main.py -i <input_file> -m <mode>')
+            print('-m:')
+            print('  a: The program will provide you a dataset with estimate separation plane = [-1,-1,-1]')
+            print('  na: This program will provied you a dataset which specified by you.')
             sys.exit()
         elif opt in ("-i", "--input_file"):
             input_path = arg
-        elif opt in ("-o", "--output_file"):
-            output_path = arg
-
+        elif opt in ("-m", "--mode"):
+            if arg == 'a':
+                use_a_fixed_config_to_test = True
+    output_path = input_path
     w = None  # result of our algorithm
 
     if input_path == None or os.path.isfile(input_path) == False:
-        use_a_fixed_config_to_test = True
         if use_a_fixed_config_to_test:
             n = 100
             # d=6
